@@ -1,0 +1,222 @@
+﻿<UserControl xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:local="clr-namespace:Sipernasa"
+             x:Class="Sipernasa.Cetak"
+             mc:Ignorable="d" 
+             d:DesignHeight="642" d:DesignWidth="1075"
+             Background="#F2F5FB">
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0 0">
+        <dragablz:TabablzControl IsManipulationEnabled="False" ShowDefaultAddButton="False" ShowDefaultCloseButton="False"
+                                 IsTabStop="True" Focusable="False" AllowDrop="False" x:Name="rpt_rekapSPPD" Margin="0,0,10,0" >
+            <TabItem Header="REKAP" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <DockPanel>
+                        <DockPanel Height="50" VerticalAlignment="Stretch" DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Stretch">
+                                <Button x:Name="btn_printRekap" materialDesign:ButtonAssist.CornerRadius="10"
+                                Height="40" Width="50" Margin="0" Click="btn_printRekap_Click"
+                                BorderBrush="Transparent" BorderThickness="2"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                materialDesign:RippleAssist.Feedback="#DD000000"
+                                Background="Lime">
+                                    <materialDesign:PackIcon Kind="Printer"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     Height="15" Width="15" Margin="0"/>
+                                </Button>
+                                <Separator Width="10" Background="Transparent"/>
+                                <DatePicker HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                        SelectedDate="{Binding SellStartDate, StringFormat=\{0:dd-MM-yyyy\}}"
+                                materialDesign:HintAssist.Hint="Tanggal Mulai" x:Name="dp_start"
+                                >
+                                    <DatePicker.Resources>
+                                        <Style TargetType="{x:Type DatePickerTextBox}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <TextBox x:Name="txt_tb"
+                                                             Text="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=\{0:dd-MM-yyyy\}}" />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DatePicker.Resources>
+                                    <DatePicker.Style>
+                                        <StaticResource ResourceKey="MaterialDesignFloatingHintDatePicker"/>
+                                    </DatePicker.Style>
+                                </DatePicker>
+                                <Separator Width="10" Background="Transparent"/>
+                                <DatePicker HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                        SelectedDate="{Binding SellStartDate, StringFormat=\{0:dd-MM-yyyy\}}"
+                                materialDesign:HintAssist.Hint="Tanggal Selesai" x:Name="dp_end"
+                                >
+                                    <DatePicker.Resources>
+                                        <Style TargetType="{x:Type DatePickerTextBox}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <TextBox x:Name="txt_tb"
+                                                             Text="{Binding SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat=\{0:dd-MM-yyyy\}}" />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DatePicker.Resources>
+                                    <DatePicker.Style>
+                                        <StaticResource ResourceKey="MaterialDesignFloatingHintDatePicker"/>
+                                    </DatePicker.Style>
+                                </DatePicker>
+                                <Separator Width="10" Background="Transparent"/>
+                                <ComboBox Height="50" Name="cmb_penandatanganRekap"
+                        materialDesign:HintAssist.Hint="Penandatangan" 
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                </ComboBox>
+                            </StackPanel>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
+                            <Viewer:CrystalReportsViewer x:Name="rpt_rekapSPPDview" Margin="10 10"/>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="SPT" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <DockPanel>
+                        <DockPanel Height="50" VerticalAlignment="Stretch" DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Stretch">
+                                <Button x:Name="btn_printSPT" materialDesign:ButtonAssist.CornerRadius="10"
+                                Height="50" Width="50" Margin="0" Click="btn_printSPT_Click"
+                                BorderBrush="Transparent" BorderThickness="2"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                materialDesign:RippleAssist.Feedback="#DD000000"
+                                Background="Lime">
+                                    <materialDesign:PackIcon Kind="Printer"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     Height="15" Width="15" Margin="0"/>
+                                </Button>
+                                <Separator Width="10" Background="Transparent"/>
+                                <ComboBox Height="50" Width="350" Name="cmb_noAgendaSPT"
+                        materialDesign:HintAssist.Hint="No. Agenda" 
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                </ComboBox>
+                                <Separator Width="10" Background="Transparent"/>
+                                <ComboBox Height="50" Width="350" Name="cmb_penandatanganSPT"
+                        materialDesign:HintAssist.Hint="Penandatangan" 
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                </ComboBox>
+                            </StackPanel>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
+                            <Viewer:CrystalReportsViewer x:Name="rpt_SPTview" Margin="10 10"/>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="SPPD" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <DockPanel>
+                        <DockPanel Height="50" VerticalAlignment="Stretch" DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Stretch">
+                                <Button x:Name="btn_printSPPD" materialDesign:ButtonAssist.CornerRadius="10"
+                                Height="40" Width="50" Margin="0" Click="btn_printSPPD_Click"
+                                BorderBrush="Transparent" BorderThickness="2"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                materialDesign:RippleAssist.Feedback="#DD000000"
+                                Background="Lime">
+                                    <materialDesign:PackIcon Kind="Printer"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     Height="15" Width="15" Margin="0"/>
+                                </Button>
+                                <Separator Width="10" Background="Transparent"/>
+                                <ComboBox Height="50" Width="350" Name="cmb_noAgendaSPPD"
+                        materialDesign:HintAssist.Hint="No. Agenda" 
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                </ComboBox>
+                                <Separator Width="10" Background="Transparent"/>
+                                <ComboBox Height="50" Name="cmb_penandatanganSPPD"
+                        materialDesign:HintAssist.Hint="Penandatangan" 
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                </ComboBox>
+                            </StackPanel>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
+                            <Viewer:CrystalReportsViewer x:Name="rpt_SPPDview" Margin="10 10"/>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="LPD" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <DockPanel>
+                        <DockPanel Height="50" VerticalAlignment="Stretch" DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Stretch">
+                                <Button x:Name="btn_printLPD" materialDesign:ButtonAssist.CornerRadius="10"
+                                Height="40" Width="50" Margin="0" Click="btn_printLPD_Click"
+                                BorderBrush="Transparent" BorderThickness="2"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                materialDesign:RippleAssist.Feedback="#DD000000"
+                                Background="Lime">
+                                    <materialDesign:PackIcon Kind="Printer"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     Height="15" Width="15" Margin="0"/>
+                                </Button>
+                                <Separator Width="10" Background="Transparent"/>
+                                <ComboBox Height="50" Width="350" Name="cmb_noAgendaLPD"
+                        materialDesign:HintAssist.Hint="No. Agenda" 
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                </ComboBox>
+                            </StackPanel>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
+                            <Viewer:CrystalReportsViewer x:Name="rpt_LPDview" Margin="10 10"/>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="PEMBIAYAAN" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <DockPanel>
+                        <DockPanel Height="50" VerticalAlignment="Stretch" DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Stretch">
+                                <Button x:Name="btn_printRBPD" materialDesign:ButtonAssist.CornerRadius="10"
+                                Height="50" Width="50" Margin="0" Click="btn_printRBPD_Click"
+                                BorderBrush="Transparent" BorderThickness="2"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                materialDesign:RippleAssist.Feedback="#DD000000"
+                                Background="Lime">
+                                    <materialDesign:PackIcon Kind="Printer"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     Height="15" Width="15" Margin="0"/>
+                                </Button>
+                                <Separator Width="10" Background="Transparent"/>
+                                <ComboBox Height="50" Width="350" Name="cmb_noAgendaRBPD"
+                        materialDesign:HintAssist.Hint="No. Agenda" 
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                </ComboBox>
+                                <Separator Width="10" Background="Transparent"/>
+                                <ComboBox Height="50" Width="350" Name="cmb_jenisPerjalanan" DropDownClosed="cmb_jenisPerjalanan_DropDownClosed"
+                        materialDesign:HintAssist.Hint="Jenis Perjalanan Dinas" 
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                </ComboBox>
+                            </StackPanel>
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
+                            <Viewer:CrystalReportsViewer x:Name="rpt_RBPDview" Margin="10 10"/>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+        </dragablz:TabablzControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,309 @@
+﻿<UserControl x:Class="Sipernasa.SPPD"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Sipernasa"
+             mc:Ignorable="d" 
+             d:DesignHeight="642" d:DesignWidth="1075"
+             Background="#F2F5FB">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <GroupBox Header=" Data SPPD" FontSize="12" Margin="2" Padding="2">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox Height="20" VerticalAlignment="Top" IsChecked="False"
+                              x:Name="MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox">
+                        Matikan Nomor agenda otomatis
+                    </CheckBox>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+                        <TextBox materialDesign:HintAssist.Hint="Agenda" Text="900" Height="40" Width="80"
+                                 IsEnabled="False" Name="agenda"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Text="/" Width="10" IsEnabled="False" HorizontalAlignment="Center" Name="txt_separator1"/>
+                        <TextBox materialDesign:HintAssist.Hint="* No." Height="40" Width="80"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             AcceptsReturn="True" Name="txt_autoNumber"
+                             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}"/>
+                        <TextBox Text="/" Name="txt_separator2" Width="10" IsEnabled="False" HorizontalAlignment="Center"/>
+                        <TextBox materialDesign:HintAssist.Hint="Bulan" Height="40" Width="80"
+                                 IsEnabled="False" Name="txt_currentMonth"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Text="/" Name="txt_separator3" Width="10" IsEnabled="False" HorizontalAlignment="Center"/>
+                        <TextBox materialDesign:HintAssist.Hint="Tahun" Height="40" Width="80"
+                                 IsEnabled="False" Name="txt_currentYear"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </StackPanel>
+                    <Grid Height="40" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <TextBox Name="txt_ds"
+                                materialDesign:HintAssist.Hint="* Dasar Surat"
+                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <DatePicker SelectedDate="{Binding Path = SellStartDate, StringFormat = {}{0:dd-MM-yyyy}}"
+                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                materialDesign:HintAssist.Hint="* Tanggal Surat" Name="dp_ts"
+                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" CalendarClosed="dp_ts_Closed" CalendarOpened="dp_ts_Open">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Control.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBox x:Name="txt_tanggalSurat"
+                                                             Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd-MM-yyyy}, 
+                                                        RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </Grid>
+                    </Grid>
+                    <ComboBox Height="40" Name="cmb_namaPerangkat"
+                        materialDesign:HintAssist.Hint="* Nama Perangkat" SelectionChanged="cmb_namaPerangkat_SelectionChanged"
+                        IsEditable="False" DropDownClosed="cmb_perangkat_DropDownClosed"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    </ComboBox>
+                    <TextBox
+                        materialDesign:HintAssist.Hint="NIP" Name="txt_nip"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Height="40"
+                        materialDesign:HintAssist.Hint="Jabatan"
+                        IsEnabled="False" Name="txt_jabatan"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Height="40"
+                        materialDesign:HintAssist.Hint="* Maksud SPPD" Name="txt_maksud"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <ComboBox Height="40" Name="cmb_alat"
+                        materialDesign:HintAssist.Hint="* Alat Transportasi"
+                        IsEditable="False"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBoxItem>
+                            Kendaraan Pribadi Roda Dua
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Kendaraan Pribadi Roda Empat
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <Grid Height="40" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1" Background="Transparent">
+                            <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                materialDesign:HintAssist.Hint="* Tempat Berangkat" Name="txt_tempatBerangkat"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                        <Grid Grid.Column="2" Background="Transparent">
+                            <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                materialDesign:HintAssist.Hint="* Tempat Tujuan" Name="txt_tempatTujuan"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                    </Grid>
+                    <Grid Height="40" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1" Background="Transparent">
+                            <DatePicker HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsEnabled="False"
+                                        SelectedDate="{Binding Path = SellStartDate, StringFormat = {}{0:dd-MM-yyyy}}"
+                                materialDesign:HintAssist.Hint="* Tanggal Berangkat" Name="dp_tb"
+                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" CalendarClosed="dp_tb_Closed">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Control.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBox x:Name="txt_tb"
+                                                             Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd-MM-yyyy}, 
+                                                        RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </Grid>
+                        <Grid Grid.Column="2" Background="Transparent">
+                            <DatePicker HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                        SelectedDate="{Binding Path = SellStartDate, StringFormat = {}{0:dd-MM-yyyy}}"
+                                materialDesign:HintAssist.Hint="* Tanggal Kembali" Name="dp_tk" IsEnabled="False"
+                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" CalendarClosed="dp_tk_CalendarClosed">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Control.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBox x:Name="txt_tk"
+                                                             Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd-MM-yyyy}, 
+                                                        RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </Grid>
+                    </Grid>
+                    <TextBox Height="40"
+                        materialDesign:HintAssist.Hint="Lama Keberangkatan"
+                        IsEnabled="False" Name="txt_lk"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <Grid Height="80" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Background="Transparent">
+                            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                      materialDesign:HintAssist.Hint="Pengikut 1" Name="cmb_pengikut1"
+                                      DropDownClosed="cmb_pengikut1_DropDownClosed"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        </Grid>
+                        <Grid Grid.Column="1" Background="Transparent">
+                            <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                     IsEnabled="False"
+                                     materialDesign:HintAssist.Hint="Jabatan 1" Name="txt_jabatan_pengikut1"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                        <Grid Grid.Row="2" Background="Transparent">
+                            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DropDownClosed="cmb_pengikut2_DropDownClosed"
+                                      materialDesign:HintAssist.Hint="Pengikut 2" Name="cmb_pengikut2"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="1" Background="Transparent">
+                            <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                     IsEnabled="False" Name="txt_jabatan_pengikut2"
+                                     materialDesign:HintAssist.Hint="Jabatan 2"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        </Grid>
+                    </Grid>
+                    <TextBox Height="40" Text="APBDes"
+                        materialDesign:HintAssist.Hint="* Sumber Anggaran" Name="txt_sumberAnggaran"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Height="40"
+                        materialDesign:HintAssist.Hint="Keterangan" Name="txt_ket"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btn_new" materialDesign:ButtonAssist.CornerRadius="10"
+                                Height="40" Width="50" Margin="0"
+                                BorderBrush="Transparent" BorderThickness="2"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                materialDesign:RippleAssist.Feedback="#DD000000"
+                                Background="Lime" Click="btn_new_Click">
+                            <materialDesign:PackIcon Kind="BriefcasePlusOutline"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     Height="15" Width="15" Margin="0"/>
+                        </Button>
+                        <Grid Grid.Column="1" >
+                            <Button x:Name="btn_edit"  materialDesign:ButtonAssist.CornerRadius="10"
+                                    Height="40" Width="50" Margin="0" Click="btn_edit_Click"
+                                    BorderBrush="Transparent" BorderThickness="2"
+                                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                    materialDesign:RippleAssist.Feedback="#DD000000"
+                                    Background="Yellow">
+                                <materialDesign:PackIcon Kind="BriefcaseEditOutline" Name="iconUbah"
+                                                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                         Height="15" Width="15" Margin="0"/>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Button materialDesign:ButtonAssist.CornerRadius="10" x:Name="btn_hapus"
+                                    BorderBrush="Transparent" BorderThickness="2" Click="btn_hapus_Click"
+                                    Background="Red" Height="40" Width="50" Margin="0" IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                    materialDesign:RippleAssist.Feedback="#DD000000">
+                                <materialDesign:PackIcon Kind="BriefcaseRemoveOutline"
+                                                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                         Height="15" Width="15" Margin="0"/>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        <Grid  Grid.Column="2" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <GroupBox Header="Rekap Data SPPD" Padding="2" Margin="2">
+                <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Background="Transparent">
+                    </Grid>
+                    <Grid Background="Transparent">
+                        <DataGrid x:Name="dataGridSppd" ScrollViewer.CanContentScroll="False" SelectedIndex="-1" MinColumnWidth="100"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserReorderColumns="False"
+                                  IsReadOnly="True" AutoGenerateColumns="False" DataGridCell.Selected="dataGridSppd_GotFocus" Loaded="dataGridSppd_Loaded">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="No. Agenda" Width="1*" Binding="{Binding no_agenda}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Dasar Surat" Width="1*" Binding="{Binding dasar_surat}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tanggal Surat" Width="1*" Binding="{Binding tanggal_surat}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nama Perangkat" Width="1*" Binding="{Binding nama_perangkat}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="NIP" Width="1*" Binding="{Binding nip}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Jabatan" Width="1*" Binding="{Binding jabatan}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Maksud Perjalanan" Width="1*" Binding="{Binding maksud_sppd}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Alat Transportasi" Width="1*" Binding="{Binding alat_transportasi}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tempat Berangkat" Width="1*" Binding="{Binding tempat_berangkat}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tujuan" Width="1*" Binding="{Binding tempat_tujuan}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tanggal Berangkat" Width="1*" Binding="{Binding tanggal_berangkat}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tanggal Kembali" Width="1*" Binding="{Binding tanggal_kembali}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Lama Keberangkatan" Width="1*" Binding="{Binding lama_keberangkatan}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Pengikut1" Width="1*" Binding="{Binding pengikut1}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Jabatan Pengikut1" Width="1*" Binding="{Binding jabatan_pengikut1}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Pengikut2" Width="1*" Binding="{Binding pengikut2}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Jabatan Pengikut2" Width="1*" Binding="{Binding jabatan_pengikut2}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Sumber Anggaran" Width="1*" Binding="{Binding sumber_anggaran}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Keterangan" Width="1*" Binding="{Binding keterangan}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Row="1" Background="LightCyan">
+                        
+                    </Grid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,41 @@
+﻿<Window x:Class="Sipernasa.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Sipernasa"
+        mc:Ignorable="d"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Title="LoginWindow" Height="400" Width="700">
+    <Window.Background>
+        <ImageBrush ImageSource="/pic/b.jpg"/>
+    </Window.Background>
+    <Grid Height="400" Width="700" HorizontalAlignment="Center">
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                ToolTip="Keluar dari Aplikasi ini Bosku?"
+                RenderTransformOrigin="5.317,-1.083" Margin="650,10,10,350"
+                Background="Transparent" BorderBrush="Transparent"
+                Name="forceClose" Click="forceClose_Click">
+            <materialDesign:PackIcon Kind="CloseCircleOutline" Height="24" Width="24" Foreground="Red"/>
+        </Button>
+        <TextBox Height="45" Width="270" FontSize="10" Name="txt_namaPengguna"
+            materialDesign:HintAssist.Hint="Nama Pengguna"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="367,128,63,227"/>
+        <PasswordBox x:Name="txt_password" Height="45" Width="270" FontSize="10"
+            materialDesign:HintAssist.Hint="Kata Sandi"
+            materialDesign:HintAssist.Foreground="Green"
+            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="367,178,63,177"/>
+        <CheckBox IsChecked="True" FontSize="10" Margin="517,234,63,136" Name="rememberMe" Height="30" Width="120">
+            Ingat Saya Bosku?
+        </CheckBox>
+        <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100" FontSize="10" Foreground="White" Background="#F9C500"
+                ToolTip="Masukkan Nama Pengguna dan Kata Sandi Untuk Masuk Aplikasi Bosku"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                materialDesign:ButtonAssist.CornerRadius="10"
+                materialDesign:RippleAssist.Feedback="#FCE690" Margin="462,275,138,93" BorderThickness="0" Name="btn_login" Click="btn_login_Click">
+            Masuk
+        </Button>
+    </Grid>
+</Window>
